@@ -12,5 +12,8 @@
         >
         <p class="articleView__date">{{ article.createdAt | date('d/m/Y') }}</p>
         <p class="articleView__content">{{ article.content }}</p>
+        <button class="articleView__button">
+            <a href="{{ path('homepage') }}" class="articleView__button__link">retour à la page d'accueil</a>
+        </button>
     </main>
 {% endblock %}
