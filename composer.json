@@ -13,6 +13,7 @@
         "gedmo/doctrine-extensions": "^3.5",
         "sensio/framework-extra-bundle": "^6.2",
         "stof/doctrine-extensions-bundle": "^1.7",
+        "symfony/apache-pack": "^1.0",
         "symfony/asset": "5.4.*",
         "symfony/console": "5.4.*",
         "symfony/dotenv": "5.4.*",
