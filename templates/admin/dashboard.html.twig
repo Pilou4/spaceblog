@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+    <main class="dashboard">
+        <h1 class="dashboard__title">Tableau de bord</h1>
+        <div class="dashboard__buttons">
+            <button class="dashboard__button">
+                <a href="{{ path('article_add') }}" class="dashboard__button__link">Ajouter un article</a>
+            </button>
+            <button class="dashboard__button">
+                <a href="{{ path('homepage') }}" class="dashboard__button__link">retour à la page d'accueil</a>
+            </button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>titre</th>
+                    <th>contenu</th>
+                    <th>slug</th>
+                    <th>date de création</th>
+                    <th>image d'illustration</th>
+                    <th>modifier</th>
+                    <th>supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in articles %}
+                    <tr>
+                        <td>{{ article.title }}</td>
+                        <td class="dashboard__content">{{ article.content }}</td>
+                        <td>{{ article.slug }}</td>
+                        <td>{{ article.createdAt | date('d/m/Y') }}</td>
+                        <td><img src="{{ asset('images/articles/') ~ article.cover }}" alt="image" class="dashboard__img"></td>
+                        <td class="admin__button__update">
+                            <a href="{{ path('article_update', {'id': article.id}) }}">
+                                <i class="las la-edit la-2x"></i>
+                            </a>
+                        </td>
+                        <td class="admin__button__delete">
+                            <a href="#" class="press modal-trigger" data-target="modal-delete" data-id="{{article.id}}" data-title="{{article.title}}">
+                                <i class="las la-trash la-2x"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="modal white falling" id="modal-delete">
+            <div class="modal-header">Supprimer une annonce</div>
+            <div class="divider"></div>
+            <div class="modal-content"></div>
+            <div class="divider"></div>
+            <div class="modal-footer">
+                <a href="" class="btn red">Valider</a>
+                <button data-target="modal-delete" class="ml-auto btn small primary modal-trigger">Fermer</button>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/axentix@0.5.3/dist/js/axentix.min.js" defer></script>
+    <script defer>
+		window.onload = () => {
+			let modal = new Modal('#modal-delete');
+			let supprimer = document.querySelectorAll(".modal-trigger")
+			for(let button of supprimer){
+				button.addEventListener("click", function () {
+					document.querySelector(".modal-footer a").href = `/article/delete/${this.dataset.id}`
+					document.querySelector(".modal-content").innerText = `Êtes-vous sûr(e) de vouloir supprimer l'article "${this.dataset.title}"`
+				})	
+			}
+		}
+	</script>
+
+{% endblock %}

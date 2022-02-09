@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DefaultController!{% endblock %}
+
+{% block body %}
+<main class="home">
+    <div class="home__background">
+        <h1 class="home__title">
+        Découvrez <span>l'espace</span> comme jamais auparavant
+        </h1>
+    </div>
+    <h2 class="home__subtitle">Nos articles</h2>
+    <section class="home__articles">
+        {% for article in articles %}
+            <article class="home__article">
+                <a href="{{ path('article_view', {'id': article.id, 'slug': article.slug}) }}">
+                    <img 
+                        src="{{ asset('images/articles/') ~ article.cover }}" 
+                        alt="image de l'artiicle {{ article.title }}"
+                        class="home__article__img"
+                    >
+                    <aside>
+                        <h3 class="home__article__title">{{ article.title }}</h3>
+                    </aside>
+                </a>
+            </article>
+        {% endfor %}
+    </section>
+</main>
+{% endblock %}

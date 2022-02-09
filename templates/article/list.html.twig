@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block body %}
+    <main class="article">
+        <h1 class="article__title">Listes des articles</h1>
+        {% for article in articles %}
+            <a href="{{ path('article_view',{'id': article.id, 'slug': article.slug}) }}">details</a>
+            <h2>{{ article.title }}</h2>
+            <p>{{ article.content }}</p>
+            <p>{{ article.slug }}</p>
+            <img src="{{ asset('images/articles/') ~ article.cover }}" alt="image">
+            <p>{{ article.createdAt | date('d/m/Y') }}</p>
+        {% endfor %}
+    </main>
+{% endblock %}
